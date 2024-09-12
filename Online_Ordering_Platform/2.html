@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Information</title>
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="project.css">
+</head>
+<body>
+  <div id="header"></div>
+<div id="userInformation"></div>
+
+<script type="text/babel">
+  class Header extends React.Component
+    {
+        render()
+        {
+            return(
+                <div style={{fontSize:"30px",}}><h1 style={{color:"#F62A90",fontFamily:"Brush Script MT",}}>FoodWeb</h1></div>
+            );
+        }
+    }
+  class UserInformation extends React.Component 
+  {
+    constructor(props) 
+    {
+      super(props);
+      this.state = {
+        username: '',
+        houseNumber: '',
+        address1: '',
+        address2: '',
+        landmark: '',
+        phoneNumber: '',
+        email: '',
+        newPassword: '',
+      };
+    }
+
+    handleSubmit = async (event) => {
+      event.preventDefault();
+
+      try {
+        const response = await fetch('http://localhost:5000/submitForm', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(this.state),
+        });
+        
+        if (response.ok) {
+          alert('Form submitted successfully');
+          // Reset form data if needed
+          this.setState({
+            username:'',
+            houseNumber: '',
+            address1: '',
+            address2: '',
+            landmark: '',
+            phoneNumber: '',
+            email: '',
+            newPassword: '',
+          });
+        } else {
+          alert('Form submission failed');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    handleChange = (event) => {
+      const { name, value } = event.target;
+      this.setState((prevState) => ({ ...prevState, [name]: value }));
+    };
+
+    render() {
+      return (
+        <div style={{marginTop:"5%",marginLeft:"25%",marginRight:"25%",backgroundColor:"pink",textAlign:"center",}}>
+          <h1 className="heading">User Information</h1>
+          <p>Create a new account</p>
+          <form onSubmit={this.handleSubmit}>
+            <div>
+              <label>Username:</label>
+              <input type="text" name="username" placeholder="Enter user name" value={this.state.username} onChange={this.handleChange} required />
+            </div>
+              <div>
+              <label>House Number:</label>
+              <input type="text" name="houseNumber" placeholder="Enter house number" value={this.state.houseNumber} onChange={this.handleChange} required />
+            </div>
+            <div>
+              <label>Address 1:</label>
+              <input type="text" name="address1" placeholder="Enter address1" value={this.state.address1} onChange={this.handleChange} required />
+            </div>
+            <div>
+              <label>Address 2:</label>
+              <input type="text" name="address2" placeholder="Enter address2" value={this.state.address2} onChange={this.handleChange} />
+            </div>
+            <div>
+              <label>Landmark:</label>
+              <input type="text" name="landmark" placeholder="Enter landmark" value={this.state.landmark} onChange={this.handleChange} />
+            </div>
+            <div>
+              <label>Phone Number:</label>
+              <input type="tel" name="phoneNumber" placeholder="Enter phone number" value={this.state.phoneNumber} onChange={this.handleChange} required />
+            </div>
+            <div>
+              <label>Email ID:</label>
+              <input type="email" name="email" placeholder="Enter email" value={this.state.email} onChange={this.handleChange} required />
+            </div>
+            <div>
+              <label>New Password:</label>
+              <input type="password" name="newPassword" placeholder="Enter new password" value={this.state.newPassword} onChange={this.handleChange} required />
+            </div>
+            <button type="submit" className="loginButton" style={{color:"white",}}>Submit form</button>
+      </form>
+      <p>Already on food web? <a href="3.html">Sign In</a></p>
+      <button className="loginButton"><a href="1.html">Go back to home page</a></button>
+      </div>
+      );
+  }
+  }
+  ReactDOM.render(<Header />, document.getElementById('header'));
+  ReactDOM.render(<UserInformation />, document.getElementById('userInformation'));
+</script>
+
+</body>
+</html>

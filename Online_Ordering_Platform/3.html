@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="project.css">
+</head>
+<body>
+    <div id="header"></div>
+  <div id="userInformation"></div>
+  
+  <script type="text/babel" >
+    class Header extends React.Component
+    {
+        render()
+        {
+            return(
+                <div style={{fontSize:"30px",}}><h1 style={{color:"#F62A90",fontFamily:"Brush Script MT",}}>FoodWeb</h1></div>
+            );
+        }
+    }
+    class UserInformation extends React.Component 
+    {
+      constructor(props) {
+      super(props);
+      this.state = {
+      email: '',
+      password: '',
+    };
+  }
+
+  handleInputChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+
+  handleLogin = async () => {
+    const { email, password } = this.state;
+
+    // Perform a server-side check against the MongoDB collection
+    try {
+      const response = await fetch('http://localhost:5000/checkLogin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        // Redirect to 4.html on successful login
+        window.location.href = '4.html';
+      } else {
+        // Display an alert for wrong email/password
+        alert('Invalid email or password. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  render() {
+    return (
+      <div style={{ height: "50%", marginTop: "5%", marginLeft: "25%", marginRight: "25%", backgroundColor: "pink", textAlign: "center", }}>
+        <h1 className="heading">User Information</h1>
+        <div>
+          <label>Email/Username:</label>
+          <input type="text" name="email" placeholder="Enter email/username" onChange={this.handleInputChange} />
+        </div>
+        <div>
+          <label>New Password:</label>
+          <input type="password" name="password" placeholder="Enter new password" onChange={this.handleInputChange} />
+        </div>
+        <button className="loginButton" style={{ width: "25%" }} onClick={this.handleLogin}>
+          Log In
+        </button>
+      </div>
+    );
+  }
+}
+
+    
+    ReactDOM.render(<Header />, document.getElementById('header'));
+    ReactDOM.render(<UserInformation />, document.getElementById('userInformation'));
+  </script>
+
+</body>
+</html>

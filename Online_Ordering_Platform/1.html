@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Resource Example</title>
+    <link rel="stylesheet" href="project.css">
+    <script crossdomain src="https://unpkg.com/react@16/umd/react.development.js"> </script> 
+
+    <script crossdomain src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"> </script>
+
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"> </script>
+</head>
+<body>
+    <div id="text"></div>
+    <script type="text/babel">
+        class Header extends React.Component
+        {
+            render()
+            {
+                return(
+                    <div style={{fontSize:"30px",}}><h1 style={{color:"#F62A90",fontFamily:"Brush Script MT",}}>FoodWeb</h1></div>
+                );
+            }
+        }
+        class Text extends React.Component
+        {
+            render()
+            {
+                return(
+                    <div style={{width:'50%',height:'50%'}}><h1 style={{color:"black"}}><b>Your one stop to all kinds of snacks!!!</b></h1></div>
+                );
+            }
+        }
+        class Image extends React.Component
+        {
+            render()
+            {
+                return(
+                    <div><img src={this.props.src} style={{width:'600pt',height:'300pt'}}/></div>
+                );
+            }
+        }
+        class Button extends React.Component
+        {
+            render()
+            {
+                const redirectToAnotherPage=()=> 
+	            {
+                    // Assuming the target HTML file is "anotherPage.html" in the same directory
+                    window.location.href = '2.html';
+	            }
+                return(
+                    <div><button onClick={redirectToAnotherPage} style={{backgroundColor:'black',color:"white",height:"35%",width:"25%",}}>Log in to Order</button></div>
+                );
+            }
+        }
+        class Page1 extends React.Component
+        {
+            render()
+            {
+                return(
+                    <div>
+                        <Header/>
+                        <div style={{display:'flex',width:"100%",}}>
+                            <div style={{display:'inline-block',width:"100%",}}><Text/><Button/></div>
+                            <Image{...this.props}/></div>
+                        </div>
+                );
+            }
+        }
+        ReactDOM.render(<div><Page1
+        src='https://www.tastingtable.com/img/gallery/25-most-popular-snacks-in-america-ranked-worst-to-best/l-intro-1645492743.jpg'
+        /></div>,document.querySelector("#text"));
+
+    </script>
+</body>
+</html>

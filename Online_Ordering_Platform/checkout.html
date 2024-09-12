@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Your Cart</title>
+        <link rel="stylesheet" type="text/css" href="project101.css">
+    </head>
+
+    <body>
+        <div class = "bruh">
+        <!--<div id="header">
+            <h1>FoodWeb</h1>
+        </div>
+    -->
+
+        <div id = "text">
+        </div>
+
+        <div class = "but">
+            <button type="submit" onclick="window.location.href = '4.html' " style="margin-left: 120px; padding-right: 10px;" > Home </button>
+            <button type ="submit" onclick="window.location.href = 'aboutus.html'"> About Us</button>
+            <button type ="submit" onclick="window.location.href = 'aboutus.html#contact'"> Contact Us </button>
+            <button type ="submit" onclick="window.location.href = 'rest.html'"> Our Restaurants </button>
+            <button type ="submit" onclick="window.location.href = 'account.html'"style="margin-left: 480px; padding-right: 10px;"> My Account</button>
+            <div id = "image">
+            <img src = "account-icon.png" alt = "account-icon"height="25px" width="40px">
+        </div>
+    </div>
+        <div id = "food" ></div>
+        <script crossdomain src="https://unpkg.com/react@16/umd/react.development.js"> </script> 
+        <script crossdomain src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"> </script>
+        <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"> </script>
+        
+
+        <script type="text/babel">
+
+class Header extends React.Component {
+      render() {
+        return (
+          <div style={{ marginLeft:"0px" }}>
+            <h1 style={{ textAlign:"left",marginLeft:"0px",fontSize: "50px",color: "#F62A90", fontFamily: "Brush Script MT" }}>FoodWeb</h1>
+          </div>
+        );
+      }
+    }
+    ReactDOM.render(<Header />, document.querySelector("#text"));
+            function Fooditems({ name, price, qty, plus, minus }) {
+              return (
+                React.createElement('div', { className: 'food-item' },
+                  React.createElement('h2', null, name),
+                  React.createElement('button', { onClick: plus }, '+'),
+                  React.createElement('button', { onClick: minus }, '-'),
+                  React.createElement('p', null, 'Price = ₹' + price),
+                  React.createElement('p', null, 'Quantity: ' + qty)
+                )
+              );
+            }
+          
+            function Web() {
+              // Parse the URL to get the cartData parameter
+              const queryString = window.location.search;
+              const urlParams = new URLSearchParams(queryString);
+              const cartData = urlParams.get('cartData');
+          
+              // If cartData is present, initialize items with the cart data
+              const items = cartData ? JSON.parse(decodeURIComponent(cartData)) : [];
+          
+              // Set quantity to 1 by default for each item
+              items.forEach(item => {
+                item.qty = 1;
+              });
+          
+              const plus = (index) => {
+                items[index].qty++;
+                renderWeb();
+              };
+          
+              const minus = (index) => {
+                if (items[index].qty > 0) {
+                  items[index].qty--;
+                  renderWeb();
+                }
+              };
+          
+              const renderWeb = () => {
+                const foodEle = items.map((item, index) => {
+                  return React.createElement(Fooditems, {
+                    key: index,
+                    name: item.name,
+                    price: item.price,
+                    qty: item.qty,
+                    plus: () => plus(index),
+                    minus: () => minus(index)
+                  });
+                });
+          
+                const totalCost = items.reduce((total, item) => total + (item.price * item.qty), 0);
+                const currTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: "2-digit" });
+                const delTime = new Date();
+                delTime.setMinutes(delTime.getMinutes() + 45);
+                const deliveryTime = delTime.toLocaleTimeString([], { hour: '2-digit', minute: "2-digit" });
+          
+                const web = React.createElement('div', { className: 'order' },
+                  React.createElement('h1', { style: { textAlign: 'center' } }, 'Your Cart'),
+                  React.createElement('div', { id: 'item-list', className: 'order-line' }, foodEle),
+                  React.createElement('h1', { style: { textAlign: 'center' } }, 'Order Summary'),
+                  React.createElement('h3', { className: 'total-cost' }, 'Total Cost: ₹' + totalCost),
+                  React.createElement('h3', { className: 'order-time' }, 'Order Time: ' + currTime),
+                  React.createElement('h3', { className: 'delivery-time' }, 'Delivery Time: ' + deliveryTime),
+                  React.createElement('button', {
+                    type: 'submit',
+                    className: 'checkout-button',
+                    style: {
+                      marginLeft: '900px',
+                      fontSize: '15px',
+                      height: '40px',
+                      width: '90px',
+                      color: 'rgb(65, 1, 1)',
+                      fontWeight: 'bold',
+                      backgroundColor: 'lightgreen'
+                    },
+                    onClick: () => {
+                        window.location.href = 'bye.html'
+                    }
+                  }, "Pay now!")
+                );
+          
+                ReactDOM.render(web, document.getElementById('food'));
+              };
+          
+              renderWeb();
+            }
+          
+            Web();
+          </script>
+          
+          
+          
+                 
+          
+<footer>
+    <h1 style="font-size: large; margin-top:40px"> Social Media Links: <a href="https://www.instagram.com" >Instagram </a> </h1>
+    <h1 style="font-size: large; margin-left: 170px;"> <a href="https://www.youtube.com" >Youtube </a></h1>
+    <p style=" margin-left: 1110px; display: inline;">&copy; Foodweb 2023</p>
+  </footer>
+    </body>
+</html>

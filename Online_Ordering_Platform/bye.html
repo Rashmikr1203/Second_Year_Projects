@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Resource Example</title>
+    <link rel="stylesheet" href="project.css">
+    <script crossdomain src="https://unpkg.com/react@16/umd/react.development.js"></script> 
+    <script crossdomain src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <link rel="stylesheet" href="project1.css">
+</head>
+<body>
+    <header style="background-color: aquamarine;">
+        <h1>FoodWeb</h1>
+    <button type="submit" onclick="window.location.href = '4.html'"> Home </button>
+    <button type ="submit" onclick="window.location.href = 'aboutus.html'"> About Us</button>
+    <button type ="submit" onclick="window.location.href = 'aboutus.html#contact'"> Contact Us </button>
+    <button type ="submit" onclick="window.location.href = 'rest.html'"> Our Restaurants </button>
+    <button type ="submit" onclick="window.location.href = 'account.html'" style="margin-left: 350px; padding-right: 10px;"> My Account</button>
+    <div id = "image">
+    <img src = "account-icon.png" alt = "account-icon"height="25px" width="40px">
+</header>
+    
+   
+    <div id="text"></div>
+    <script type="text/babel">
+        class Header extends React.Component {
+            render() {
+                return (
+                    <div style={{ fontSize: "30px" }}>
+                        <h1 style={{ color: "#F62A90", fontFamily: "Brush Script MT" }}>FoodWeb</h1>
+                    </div>
+                );
+            }
+        }
+
+        class Text extends React.Component {
+            render() {
+                return (
+                    <div style={{ width: '50%', height: '50%', fontSize: "30px", leftMargin: '40px', textAlign: 'center' }}>
+                        <h1 style={{ color: "black", fontFamily: "Brush Script MT", display: "inline" , leftMargin: '40px', textAlign: 'center'}}>
+                            <b style={{ textAlign: 'center'}}>Thank you for ordering with us!</b>
+                        </h1>
+                    </div>
+                );
+            }
+        }
+
+        class Page1 extends React.Component {
+            render() {
+                return (
+                    <div>
+                        
+                        <div style={{ display: 'flex', width: "100%", leftMargin: '40px', textAlign: 'center' }}>
+                            <div style={{ display: 'inline-block', width: "100%", leftMargin: '40px', textAlign: 'center'  }}>
+                                <Text />
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <div>
+                <Page1 />
+            </div>,
+            document.querySelector("#text")
+        );
+    </script>
+</body>
+</html>
+

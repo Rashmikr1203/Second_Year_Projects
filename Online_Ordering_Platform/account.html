@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - FoodWeb</title>
+    <link rel="stylesheet" type="text/css" href="project2.css">
+    <script type="text/javascript">
+      function displayUserInfo(userData) {
+        const accountDetailsElement = document.getElementById('account-details');
+
+        // Display user information using innerHTML
+     accountDetailsElement.innerHTML = `
+      <h2>Welcome to Your Account</h2>
+      <p>Username: ${userData.authenticatedUser.username}</p>
+      <p>Email: ${userData.email}</p>
+      <p>Phone: ${userData.phoneNumber}</p>
+      <p>Address: ${userData.address1}, ${userData.address2}, ${userData.landmark}</p>
+    `;
+  }
+
+
+  document.addEventListener('DOMContentLoaded', async function () {
+    try {
+      const response = await fetch('http://localhost:5000/getUserInfo', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+      
+      if (response.ok) {
+      const  userData = await response.json();
+        console.log('User data:', userData); // Log userData to the console
+        displayUserInfo(userData);
+      } else {
+        console.error('Failed to fetch user information');
+      }
+
+    } catch (error) {
+      console.error('Error fetching user information:', error);
+    }
+  });
+
+</script>
+</head>
+<body>
+    <header>
+        <h1>FoodWeb</h1>
+        <button type="submit" onclick="window.location.href = '4.html'"> Home </button>
+        <button type="submit" onclick="window.location.href = 'aboutus.html'"> About Us</button>
+        <button type="submit" onclick="window.location.href = 'aboutus.html#contact'"> Contact Us </button>
+        <button type="submit" onclick="window.location.href = 'rest.html'"> Our Restaurants </button>
+        <button type="submit" onclick="window.location.href = 'account.html'" style="margin-left: 400px; padding-right: 10px;"> My Account</button>
+        <div id="image">
+            <img src="account-icon.png" alt="account-icon" height="25px" width="40px">
+        </div>
+
+    </header>
+
+    <main>
+        <section id="account-details">
+            <h2>Welcome to Your Account</h2>
+            <p>Username: your_username</p>
+            <p>Email: your_email@example.com</p>
+            <p>Phone: your_phone_number</p>
+            <p>Address: your_address</p>
+        </section>
+
+        <section id="order-history">
+            <h2>Order History</h2>
+            <!-- Display a list of past orders with details -->
+            <!-- Example:
+            <div class="order">
+                <p>Order ID: 12345</p>
+                <p>Date: January 1, 2023</p>
+                <p>Total Cost: $50.00</p>
+                <!-- Add more order details as needed -->
+            </div>
+            
+        </section>
+    </main>
+    <footer>
+        <h1 style="font-size: large; margin-top:40px"> Social Media Links: <a href="https://www.instagram.com" >Instagram </a> </h1>
+        <h1 style="font-size: large; margin-left: 170px;"> <a href="https://www.youtube.com" >Youtube </a></h1>
+        <p style=" margin-left: 1110px; display: inline;">&copy; Foodweb 2023</p>
+      </footer>
+</body>
+</html>
